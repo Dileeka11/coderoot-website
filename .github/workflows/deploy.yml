@@ -1,0 +1,109 @@
+# Builds the site and uploads it to coderootsolutions.com by FTP, on every push to main.
+# The FTP account opens straight into the domain's folder, which ends up as:
+#   .htaccess   sends each address to the right folder
+#   frontend/   the public site, built by Next.js
+#   backend/    Laravel with its packages and .env
+#
+# Secrets (Settings > Secrets and variables > Actions):
+#   FTP_SERVER     the server's own name, so the TLS certificate matches (server905.shared.spaceship.host)
+#   FTP_USERNAME   coderoot@coderootsolutions.com
+#   FTP_PASSWORD   the FTP account's password
+#   LARAVEL_ENV    the whole backend .env, without DB_PASSWORD (deploy/.env.live on the owner's PC)
+#   DB_PASSWORD    the database user's password, kept apart so it can be changed on its own
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['**.md']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      SITE_URL: https://coderootsolutions.com
+      WEB: ${{ github.workspace }}/stage
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: intl, gd, mbstring, fileinfo, pdo_mysql
+          tools: composer:v2
+          coverage: none
+
+      - name: Build the site
+        working-directory: frontend
+        env:
+          NEXT_OUTPUT: export
+          NEXT_PUBLIC_SITE_URL: ${{ env.SITE_URL }}
+          NEXT_TELEMETRY_DISABLED: 1
+        run: |
+          npm ci
+          npm run build
+
+      - name: Put the domain folder together
+        env:
+          LARAVEL_ENV: ${{ secrets.LARAVEL_ENV }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          set -euo pipefail
+          ADMIN_PATH=$(printf '%s\n' "$LARAVEL_ENV" | sed -n 's/^ADMIN_PATH=//p' | tr -d '\r"' | head -1)
+          if [ -z "$ADMIN_PATH" ] || [ -z "$DB_PASSWORD" ]; then echo "LARAVEL_ENV needs ADMIN_PATH, and DB_PASSWORD must be set"; exit 1; fi
+          echo "::add-mask::$ADMIN_PATH"
+          mkdir -p "$WEB"
+
+          # frontend/, plus the admin panel's logos unless the site has a file of the same name
+          cp -r frontend/out "$WEB/frontend"
+          for f in backend/public/images/*; do [ -e "$WEB/frontend/images/$(basename "$f")" ] || cp "$f" "$WEB/frontend/images/"; done
+          sed "s/__ADMIN_PATH__/$ADMIN_PATH/g" deploy/public.htaccess > "$WEB/.htaccess"
+
+          # backend/: Laravel without tests or examples
+          cp -r backend "$WEB/backend"
+          B="$WEB/backend"
+          rm -rf "$B/tests" "$B/phpunit.xml" "$B/.env.example" "$B/.env.production.example" "$B/storage"
+          cp deploy/backend-public.htaccess "$B/public/.htaccess"
+          for dir in app/private app/public framework/cache/data framework/sessions framework/views logs; do
+            mkdir -p "$B/storage/$dir"
+            printf '*\n!.gitignore\n' > "$B/storage/$dir/.gitignore"
+          done
+          # Uploads are written straight into public/storage, where nothing may run as code
+          mkdir -p "$B/public/storage/projects"
+          cp backend/storage/app/public/.htaccess "$B/public/storage/.htaccess"
+
+          # Composer runs artisan when it is done, which needs some settings, so it gets throwaway ones
+          printf 'APP_ENV=production\nAPP_KEY=base64:%s\nCACHE_STORE=array\nSESSION_DRIVER=array\nDB_CONNECTION=sqlite\n' "$(head -c 32 /dev/urandom | base64)" > "$B/.env"
+          composer install --working-dir="$B" --no-dev --optimize-autoloader --no-interaction --no-progress
+
+          # The live settings. DB_PASSWORD is quoted so any character in it is read as it is.
+          ESCAPED=$(printf '%s' "$DB_PASSWORD" | sed 's/[\\"]/\\&/g')
+          { printf '%s\n' "$LARAVEL_ENV" | tr -d '\r' | grep -v '^DB_PASSWORD='; printf 'DB_PASSWORD="%s"\n' "$ESCAPED"; } > "$B/.env"
+
+      - name: Upload by FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./stage/
+          server-dir: ./
+          # Only files this action uploaded before are ever deleted, so uploaded images and logs stay.
+          exclude: |
+            **/.git/**

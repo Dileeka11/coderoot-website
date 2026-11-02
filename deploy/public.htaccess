@@ -1,0 +1,96 @@
+# CodeRoot Solutions. Everything lives in the domain's folder:
+#   frontend/  the public site, plain files built by Next.js
+#   backend/   Laravel. Only backend/public/index.php and its assets are ever reached, through the rules below.
+# Visitors never see /frontend or /backend in an address.
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+DirectorySlash Off
+ErrorDocument 404 /frontend/404.html
+
+AddType application/manifest+json .webmanifest
+AddDefaultCharset utf-8
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # HTTPS only, and one domain without www
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{REQUEST_URI} !^/\.well-known/
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+    # The folders themselves are never opened directly, so Laravel's code and settings cannot be read
+    RewriteCond %{THE_REQUEST} \s/+(?:frontend|backend)(?:[/?\s]|$) [NC]
+    RewriteRule ^ - [R=404,L]
+
+    # Hidden files stay hidden, except the folder SSL certificates are checked through
+    RewriteRule (^|/)\.(?!well-known(/|$)) - [F]
+
+    # Laravel needs the Authorization header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Already sent to a folder below: nothing more to do
+    RewriteRule ^(?:frontend|backend)/ - [L]
+
+    # One address per page, without a trailing slash
+    RewriteCond %{REQUEST_URI} !^/\.well-known/
+    RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+    # Laravel: the admin panel, the API, project pages and the project sitemap
+    RewriteRule ^(?:__ADMIN_PATH__(?:/.*)?|api/.*|livewire-[a-z0-9]+/.*|filament/.*|projects/[a-z0-9]+(?:-[a-z0-9]+)*|projects-sitemap\.xml|up)$ backend/public/index.php [L]
+
+    # The admin panel's styles, scripts and fonts
+    RewriteRule ^((?:css|js|fonts)/.+)$ backend/public/$1 [L]
+
+    # Uploaded project images: /media for the site, /storage for the admin panel's previews
+    RewriteRule ^(?:media|storage)/(.+)$ backend/public/storage/$1 [L]
+
+    # Next.js build files have a content hash in their name, so they can be cached for good
+    RewriteRule ^_next/static/ - [E=HASHED_ASSET:1]
+
+    # Next.js asks for page data as __next.services.website-development.__PAGE__.txt, but the build
+    # saves it as __next.services/website-development/__PAGE__.txt. One rule per depth, so a single pass is enough.
+    RewriteRule ^(.*/)?__next\.([^/.]+)\.([^/.]+)\.([^/.]+)\.([^/.]+\.txt)$ frontend/$1__next.$2/$3/$4/$5 [L]
+    RewriteRule ^(.*/)?__next\.([^/.]+)\.([^/.]+)\.([^/.]+\.txt)$ frontend/$1__next.$2/$3/$4 [L]
+    RewriteRule ^(.*/)?__next\.([^/.]+)\.([^/.]+\.txt)$ frontend/$1__next.$2/$3 [L]
+
+    # The home page, files of the site, and pages saved as about.html, services/website-development.html and so on
+    RewriteRule ^$ frontend/index.html [L]
+    RewriteCond %{DOCUMENT_ROOT}/frontend/$1 -f
+    RewriteRule ^(.+)$ frontend/$1 [L]
+    RewriteCond %{DOCUMENT_ROOT}/frontend/$1.html -f
+    RewriteRule ^(.+)$ frontend/$1.html [L]
+
+    # Anything else is not found
+    RewriteRule ^ - [R=404,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Laravel sets its own headers. These cover the plain files.
+    <FilesMatch "\.(html|txt|xml|webmanifest|js|css|svg|png|jpe?g|webp|ico|woff2?)$">
+        Header set X-Content-Type-Options "nosniff"
+        Header set Referrer-Policy "strict-origin-when-cross-origin"
+        Header set Strict-Transport-Security "max-age=31536000"
+        Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+        # Apache renames the flag after an internal rewrite, LiteSpeed does not, so both names are checked
+        Header set Cache-Control "public, max-age=31536000, immutable" env=HASHED_ASSET
+        Header set Cache-Control "public, max-age=31536000, immutable" env=REDIRECT_HASHED_ASSET
+    </FilesMatch>
+    # Keep the policy the same as SITE_CSP in the backend's SecurityHeaders middleware.
+    <FilesMatch "\.html$">
+        Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; manifest-src 'self'; upgrade-insecure-requests"
+        Header set X-Frame-Options "DENY"
+        Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+        Header set Cross-Origin-Opener-Policy "same-origin"
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
+    <FilesMatch "\.(txt|xml|webmanifest)$">
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript text/javascript application/json application/manifest+json image/svg+xml
+</IfModule>

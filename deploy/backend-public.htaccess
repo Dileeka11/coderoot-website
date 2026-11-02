@@ -1,0 +1,26 @@
+# backend/public on the live server. The domain folder's .htaccess sends Laravel's addresses here.
+# Apache only reads the nearest .htaccess with rewrite rules, so the /backend block is repeated here.
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Never opened by its own address
+    RewriteCond %{THE_REQUEST} \s/+(?:frontend|backend)(?:[/?\s]|$) [NC]
+    RewriteRule ^ - [R=404,L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

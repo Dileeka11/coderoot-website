@@ -1,0 +1,12 @@
+/tools/
+/.claude/
+.DS_Store
+Thumbs.db
+
+# Live settings, the admin login and built files. Never commit these: the repository is public.
+.env
+.env.*
+!.env.example
+!.env.production.example
+/deploy/ADMIN-LOGIN.txt
+/deploy/dist/
