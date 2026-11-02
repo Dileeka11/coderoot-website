@@ -113,7 +113,7 @@ The live settings, including the database password, are in `deploy/.env.live`. T
 
 ### First install
 
-1. **cPanel > MySQL Databases**: create a database called `coderoot` (it becomes `zmpzynrsph_coderoot`), and add the user `zmpzynrsph_coderootadmin` to it with **All Privileges**. If you use a different name, change `DB_DATABASE` in `backend/.env`.
+1. **cPanel > MySQL Databases**: the live database is `zmpzynrsph_coderootadmin`, with the user `zmpzynrsph_coderootadmin` given **All Privileges** on it. If you use a different name, change `DB_DATABASE` in the `LARAVEL_ENV` secret and in `deploy/.env.live`.
 2. **phpMyAdmin**: open that database, then **Import** `coderoot-database.sql` from this PC.
 3. **cPanel > Select PHP Version** (or MultiPHP Manager): choose PHP 8.2 or newer, with `intl`, `gd`, `pdo_mysql`, `mbstring`, `fileinfo` and `opcache` turned on.
 4. **File Manager**: open `coderootsolutions.com`, upload `coderoot-live.zip` there, **Extract** it, then delete the zip straight away.
