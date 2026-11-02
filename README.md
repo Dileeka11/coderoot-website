@@ -136,6 +136,8 @@ The repository is public, so settings live in **Settings > Secrets and variables
 
 Never commit `.env` files, `deploy/.env.live` or `deploy/ADMIN-LOGIN.txt`. `.gitignore` keeps them out.
 
+The workflow never uploads `backend/vendor`, Laravel's 14,000 package files, because the server takes several seconds per FTP command. They come from the first-install zip. After a change to `backend/composer.lock`, run `deploy/build-zip.ps1`, delete `backend/vendor` on the server, and upload and extract just that folder from the new zip.
+
 The workflow does not touch the database. A change that needs a new table or column also needs that change made in phpMyAdmin. Never import the SQL file again, as it would wipe the projects.
 
 ### How the folders share the domain

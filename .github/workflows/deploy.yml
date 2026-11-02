@@ -28,7 +28,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 60
     env:
       SITE_URL: https://coderootsolutions.com
       WEB: ${{ github.workspace }}/stage
@@ -105,5 +105,10 @@ jobs:
           local-dir: ./stage/
           server-dir: ./
           # Only files this action uploaded before are ever deleted, so uploaded images and logs stay.
+          # vendor/ is 14,000 files and the server takes seconds per FTP command, so it is never sent here:
+          # it comes from the first-install zip, and again by zip whenever composer.lock changes.
+          # Laravel rebuilds bootstrap/cache from the vendor/ on the server.
           exclude: |
             **/.git/**
+            backend/vendor/**
+            backend/bootstrap/cache/*.php
