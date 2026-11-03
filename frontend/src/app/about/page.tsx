@@ -17,8 +17,8 @@ export const metadata = pageMetadata({
 
 const honest = [
   {
-    title: "No made-up numbers",
-    body: "You will not find invented client counts or made-up reviews here. Our projects page grows with real work, added as each one goes live.",
+    title: "No made up numbers",
+    body: "You will not find invented client counts or made up reviews here. Our projects page grows with real work, added as each one goes live.",
   },
   {
     title: "Your project matters",
@@ -119,7 +119,7 @@ export default function AboutPage() {
       <section className="below-fold section-y" aria-labelledby="path-heading">
         <div className="shell">
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-4">
-            <SectionHead id="path-heading" title="From first chat to long-term support" className="max-w-3xl" />
+            <SectionHead id="path-heading" title="From first chat to long term support" className="max-w-3xl" />
             <Link href="/how-we-work" className="group inline-flex min-h-11 items-center gap-2 font-semibold text-teal-deep">
               See each step in detail
               <ArrowRight className="arrow size-5" />
@@ -149,7 +149,7 @@ export default function AboutPage() {
             items={[
               { href: "/technology", label: "The tools we use", body: "What we build with and why, in plain words." },
               { href: "/industries", label: "Who we help", body: "What we can build for businesses like yours." },
-              { href: "/insights", label: "Insights", body: "Plain-language guides for business owners." },
+              { href: "/insights", label: "Insights", body: "Plain language guides for business owners." },
             ]}
           />
         </div>

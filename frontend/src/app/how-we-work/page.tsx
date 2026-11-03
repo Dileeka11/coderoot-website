@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 import { processSteps, proposalSections } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "How We Work: Our Six-Step Process",
+  title: "How We Work: Our Six Step Process",
   description:
     "How CodeRoot Solutions runs a project, from the first chat to support after launch: what happens at each step, what you get and what we need from you.",
   path: "/how-we-work",

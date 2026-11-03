@@ -20,7 +20,7 @@ export const faqGroups: FaqGroup[] = [
       {
         question: "I am not sure what I need. Can you still help?",
         answer:
-          "Yes. That is what the first conversation is for. Tell us what you want to happen, and we will suggest what fits. If a simple or ready-made option is the better choice, we will say so.",
+          "Yes. That is what the first conversation is for. Tell us what you want to happen, and we will suggest what fits. If a simple or ready made option is the better choice, we will say so.",
       },
       {
         question: "Do I need to understand the technical side?",

@@ -18,7 +18,7 @@ export default function PrivacyPage() {
             <h2 className="text-2xl">What this website collects</h2>
             <p className="mt-3 text-slate">
               This website does not ask you to create an account, does not use tracking or advertising cookies, and
-              does not load analytics or other third-party scripts.
+              does not load analytics or other third party scripts.
             </p>
           </div>
           <div>
@@ -40,7 +40,7 @@ export default function PrivacyPage() {
           <div>
             <h2 className="text-2xl">Server logs</h2>
             <p className="mt-3 text-slate">
-              Like most websites, our hosting may keep short-term technical logs, such as IP addresses and pages
+              Like most websites, our hosting may keep short term technical logs, such as IP addresses and pages
               requested, to keep the site secure and working.
             </p>
           </div>

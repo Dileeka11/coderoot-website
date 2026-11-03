@@ -85,7 +85,7 @@ export default function IndustriesPage() {
               onTint
               items={[
                 { href: "/services", label: "See what we build", body: "Compare websites, web apps and custom software." },
-                { href: "/insights/custom-software-or-ready-made", label: "Custom or ready-made?", body: "An honest guide to which one suits your business." },
+                { href: "/insights/custom-software-or-ready-made", label: "Custom or ready made?", body: "An honest guide to which one suits your business." },
               ]}
             />
           </div>

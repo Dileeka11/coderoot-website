@@ -52,7 +52,7 @@ export const articles: Article[] = [
       { type: "h2", text: "Still not sure?" },
       {
         type: "p",
-        text: "Tell us what you want people to be able to do. We will tell you which one fits, including when something simpler or ready-made would do the job.",
+        text: "Tell us what you want people to be able to do. We will tell you which one fits, including when something simpler or ready made would do the job.",
       },
     ],
   },
@@ -121,20 +121,20 @@ export const articles: Article[] = [
   },
   {
     slug: "custom-software-or-ready-made",
-    title: "Custom software or ready-made? How to decide",
+    title: "Custom software or ready made? How to decide",
     summary:
-      "Ready-made tools are often the right answer. Custom software earns its place when they start to hold your business back.",
+      "Ready made tools are often the right answer. Custom software earns its place when they start to hold your business back.",
     category: "Software decisions",
     published: "2026-11-02",
     blocks: [
       {
         type: "p",
-        text: "We build custom software, and we will still tell you this: if a ready-made tool does what you need, use it. Custom software is worth it in some situations, not all of them.",
+        text: "We build custom software, and we will still tell you this: if a ready made tool does what you need, use it. Custom software is worth it in some situations, not all of them.",
       },
-      { type: "h2", text: "When ready-made is the better choice" },
+      { type: "h2", text: "When ready made is the better choice" },
       {
         type: "p",
-        text: "Ready-made tools are quick to start, cost less at the beginning and are maintained by someone else. For common jobs like accounting, email or simple online forms, they are usually the sensible choice.",
+        text: "Ready made tools are quick to start, cost less at the beginning and are maintained by someone else. For common jobs like accounting, email or simple online forms, they are usually the sensible choice.",
       },
       { type: "h2", text: "Signs you have outgrown it" },
       {
@@ -160,7 +160,7 @@ export const articles: Article[] = [
       { type: "h2", text: "There is a middle path" },
       {
         type: "p",
-        text: "You often do not have to choose one or the other. Keep the ready-made tools that work, and build only the part that is missing, or connect them so information moves on its own. It is usually the cheapest way to fix the problem you really have.",
+        text: "You often do not have to choose one or the other. Keep the ready made tools that work, and build only the part that is missing, or connect them so information moves on its own. It is usually the cheapest way to fix the problem you really have.",
       },
     ],
   },
@@ -181,7 +181,7 @@ export const articles: Article[] = [
         type: "p",
         text: "This is the most common cause. A photo straight from a camera can be many times larger than the space it fills on screen. Resizing images and saving them in a modern format such as WebP often makes the biggest difference for the least work.",
       },
-      { type: "h2", text: "Too many add-ons" },
+      { type: "h2", text: "Too many plugins" },
       {
         type: "p",
         text: "Every plugin, chat widget and tracking script adds code that the visitor's phone has to download and run. Each one seems small, but they add up. Remove what you do not really use.",
@@ -200,7 +200,7 @@ export const articles: Article[] = [
       {
         type: "ul",
         items: [
-          "Open your site on an ordinary phone, on mobile data, not on your office Wi-Fi.",
+          "Open your site on an ordinary phone, on mobile data, not on your office WiFi.",
           "Run it through Google's free PageSpeed Insights tool and read what it suggests.",
           "Ask someone who has never seen it to find your phone number, and watch how long it takes.",
         ],

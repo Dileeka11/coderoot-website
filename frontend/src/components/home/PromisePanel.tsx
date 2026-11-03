@@ -107,7 +107,7 @@ export function PromisePanel() {
                 <span className="size-3 rounded-full bg-white/15" />
                 <span className="size-3 rounded-full bg-white/15" />
                 <span className="size-3 rounded-full bg-teal" />
-                <span className="ml-3 font-mono text-[0.8125rem] text-mist">your-project.ts</span>
+                <span className="ml-3 font-mono text-[0.8125rem] text-mist">project.ts</span>
               </figcaption>
               <pre className="code-body overflow-x-auto p-6 font-mono text-[0.875rem] leading-[1.9] sm:p-8 sm:text-[0.9375rem]">
                 <code>

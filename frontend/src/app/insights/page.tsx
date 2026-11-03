@@ -6,16 +6,16 @@ import { articles } from "@/lib/insights";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Insights: Plain-Language Guides for Business Owners",
+  title: "Insights: Plain Language Guides for Business Owners",
   description:
-    "Plain-language guides from CodeRoot Solutions on planning, buying and looking after websites and software, written for business owners.",
+    "Plain language guides from CodeRoot Solutions on planning, buying and looking after websites and software, written for business owners.",
   path: "/insights",
 });
 
 export default function InsightsPage() {
   return (
     <>
-      <PageHero eyebrow="Insights" title="Plain-language guides for business owners" crumbs={[{ name: "Insights", path: "/insights" }]} shapes={["sheet"]}>
+      <PageHero eyebrow="Insights" title="Plain language guides for business owners" crumbs={[{ name: "Insights", path: "/insights" }]} shapes={["sheet"]}>
         How to plan, buy and look after websites and software, without the jargon. Useful whether you work with us or not.
       </PageHero>
 

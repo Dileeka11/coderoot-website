@@ -101,7 +101,7 @@ export const processSteps = [
     short: "Goals and needs",
     body: "We learn about your business, your goals and what you need the software to do.",
     details:
-      "We start by listening. We ask what your business does, who will use the software and what is getting in the way today. If something ready-made would suit you better, we will tell you.",
+      "We start by listening. We ask what your business does, who will use the software and what is getting in the way today. If something ready made would suit you better, we will tell you.",
     youGet: ["A clear summary of what you need", "Honest advice on the best way forward"],
     fromYou: ["A conversation about your goals", "Any examples you like, and any systems you use now"],
   },

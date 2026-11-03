@@ -36,7 +36,7 @@ export const services: Service[] = [
     nav: "Website development",
     seoTitle: "Website Development in Sri Lanka",
     seoDescription:
-      "Fast, mobile-friendly business websites built in Sri Lanka, set up to be found on Google and easy to keep up to date. Get a free quote from CodeRoot Solutions.",
+      "Fast, mobile friendly business websites built in Sri Lanka, set up to be found on Google and easy to keep up to date. Get a free quote from CodeRoot Solutions.",
     short: "Clear, fast websites that show customers what you do and make it easy to contact you.",
     intro:
       "Your website is often the first thing a customer sees. We build clear, fast sites that explain what you do and make it easy for people to get in touch, on any device.",
@@ -89,7 +89,7 @@ export const services: Service[] = [
   {
     slug: "web-application-development",
     shape: "stack",
-    folder: "web-apps/",
+    folder: "webapps/",
     title: "Web apps",
     nav: "Web app development",
     seoTitle: "Web Application Development in Sri Lanka",
@@ -109,7 +109,7 @@ export const services: Service[] = [
     goodFor: [
       "Work that has outgrown spreadsheets",
       "Services your customers should be able to use online",
-      "Teams that need the same up-to-date information in one place",
+      "Teams that need the same, up to date information in one place",
     ],
     builds: [
       { title: "Customer portals", body: "A private area where customers can see their orders, invoices or requests." },
@@ -146,7 +146,7 @@ export const services: Service[] = [
   {
     slug: "custom-software-development",
     shape: "gear",
-    folder: "custom-software/",
+    folder: "software/",
     title: "Custom software",
     nav: "Custom software development",
     seoTitle: "Custom Software Development in Sri Lanka",
@@ -164,7 +164,7 @@ export const services: Service[] = [
       "Maintenance and support after launch",
     ],
     goodFor: [
-      "Businesses where ready-made software does not fit",
+      "Businesses where ready made software does not fit",
       "Teams losing time to repeated manual work",
       "Companies planning to grow and needing software that can keep up",
     ],
@@ -172,21 +172,21 @@ export const services: Service[] = [
       { title: "Stock and inventory systems", body: "Know what you have and where it is, without counting by hand." },
       { title: "Sales and billing tools", body: "Quotes, invoices and sales records that stay in step with each other." },
       { title: "Staff and attendance systems", body: "Staff records, leave and attendance in one place." },
-      { title: "Customer records", body: "Every customer, call and follow-up where your whole team can find it." },
+      { title: "Customer records", body: "Every customer, call and follow up where your whole team can find it." },
       { title: "Reports", body: "The reports that take hours today, ready whenever you need them." },
       { title: "Connections between tools", body: "Make your separate systems share information, so nobody types the same thing twice." },
     ],
     focus: [
       { title: "Your process comes first", body: "We learn how your business runs, then build around it, not the other way round." },
       { title: "One place for your information", body: "No more hunting through spreadsheets, notebooks and chat messages." },
-      { title: "Honest advice", body: "If a ready-made tool would serve you better, we will tell you before you spend anything." },
+      { title: "Honest advice", body: "If a ready made tool would serve you better, we will tell you before you spend anything." },
     ],
     tools: ["Laravel", "Java", "Python", "MySQL", "PostgreSQL", "Filament", "React"],
     faqs: [
       {
         question: "When is custom software worth it?",
         answer:
-          "When ready-made tools force you to change how you work, or when manual work is costing you time every week. If a ready-made tool is the better fit for you, we will say so.",
+          "When ready made tools force you to change how you work, or when manual work is costing you time every week. If a ready made tool is the better fit for you, we will say so.",
       },
       { question: "How much does custom software cost?", answer: quoteAnswer },
       {

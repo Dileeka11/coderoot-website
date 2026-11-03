@@ -29,7 +29,7 @@ const stack: { key: string; value: string }[] = [
   { key: "backend", value: '["laravel", "php"]' },
   { key: "admin", value: '"filament"' },
   { key: "database", value: '"mysql"' },
-  { key: "3d", value: '"hand-written webgl"' },
+  { key: "3d", value: '"handwritten webgl"' },
 ];
 
 export default function TechnologyPage() {
@@ -112,7 +112,7 @@ export default function TechnologyPage() {
             id="proof-heading"
             eyebrow="See it for yourself"
             title="This website is the example"
-            lead="This site is built with Next.js, Laravel and hand-written WebGL from this page, including the 3D you have been looking at. Open it on your phone, on mobile data, and judge it for yourself. That is the standard we hold our own work to."
+            lead="This site is built with Next.js, Laravel and handwritten WebGL from this page, including the 3D you have been looking at. Open it on your phone, on mobile data, and judge it for yourself. That is the standard we hold our own work to."
           />
           <div className="code-stage min-w-0" data-reveal>
             <div className="code-swing">
