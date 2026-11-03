@@ -29,7 +29,7 @@ export const site = {
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61595916968916",
     instagram: "https://www.instagram.com/coderootsolutions",
-    linkedin: "https://linkedin.com/in/coderootsolutions",
+    linkedin: "https://www.linkedin.com/company/144076112/",
     tiktok: "https://tiktok.com/@coderoot.solution",
   },
 } as const;
