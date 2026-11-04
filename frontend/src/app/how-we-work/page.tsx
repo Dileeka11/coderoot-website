@@ -14,6 +14,12 @@ export const metadata = pageMetadata({
   description:
     "How CodeRoot Solutions runs a project, from the first chat to support after launch: what happens at each step, what you get and what we need from you.",
   path: "/how-we-work",
+  keywords: [
+    "web development process",
+    "software development process",
+    "website project steps",
+    "UI UX design and development",
+  ],
 });
 
 const habits = [

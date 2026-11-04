@@ -6,10 +6,16 @@ import { allFaqs, faqGroups } from "@/lib/faqs";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Frequently Asked Questions",
+  title: "FAQ: Websites, Web Apps & Software",
   description:
     "Answers to common questions about working with CodeRoot Solutions: getting started, cost and timing, what happens during a project, and support after launch.",
   path: "/faq",
+  keywords: [
+    "web development FAQ",
+    "website cost Sri Lanka",
+    "how long does a website take",
+    "website support after launch",
+  ],
 });
 
 export default function FaqPage() {

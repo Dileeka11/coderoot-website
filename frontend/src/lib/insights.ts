@@ -3,8 +3,14 @@ export type ArticleBlock = { type: "p" | "h2"; text: string } | { type: "ul"; it
 export interface Article {
   slug: string;
   title: string;
-  /** Used in lists and in search results */
+  /** The title in search results, when `title` is too long to fit there with the brand added */
+  seoTitle?: string;
+  /** Used in lists, and in search results unless `seoDescription` is set */
   summary: string;
+  /** 120 to 160 characters, for search results only */
+  seoDescription?: string;
+  /** Search phrases this article is about */
+  keywords: string[];
   category: string;
   /** The date this was really written. Brand rule: never invent dates. */
   published: string;
@@ -15,6 +21,8 @@ export const articles: Article[] = [
   {
     slug: "website-or-web-app",
     title: "Website or web app: which does your business need?",
+    seoTitle: "Website or Web App? How to Choose",
+    keywords: ["website vs web app", "difference between a website and a web app", "web app development", "business website", "web application"],
     summary:
       "The difference is simple: a website tells people things, and a web app lets them do things. Here is how to work out which one you need.",
     category: "Getting started",
@@ -59,6 +67,8 @@ export const articles: Article[] = [
   {
     slug: "prepare-for-a-website-quote",
     title: "What to prepare before you ask for a website quote",
+    seoTitle: "How to Prepare for a Website Quote",
+    keywords: ["website quote", "website quotation Sri Lanka", "website cost Sri Lanka", "website brief", "web design quote"],
     summary:
       "A better brief gets you a more accurate quote and fewer surprises. Here is what to have ready, and what you can leave to your developer.",
     category: "Getting started",
@@ -122,6 +132,10 @@ export const articles: Article[] = [
   {
     slug: "custom-software-or-ready-made",
     title: "Custom software or ready made? How to decide",
+    seoTitle: "Custom vs Ready Made Software",
+    seoDescription:
+      "Ready made tools are often the right answer. Here is when custom software earns its place, what it asks of you, and the middle path between the two.",
+    keywords: ["custom software vs ready made software", "custom software development", "off the shelf software", "business software", "software for small business"],
     summary:
       "Ready made tools are often the right answer. Custom software earns its place when they start to hold your business back.",
     category: "Software decisions",
@@ -167,6 +181,10 @@ export const articles: Article[] = [
   {
     slug: "why-your-website-is-slow",
     title: "Why your website feels slow, and what actually helps",
+    seoTitle: "Why Is Your Website Slow?",
+    seoDescription:
+      "Most slow websites have the same few causes: oversized images, too many plugins, weak hosting and heavy effects. How to check yours, and what to fix first.",
+    keywords: ["slow website", "website speed", "improve website speed", "page speed optimisation", "website performance", "WebP images"],
     summary:
       "Most slow websites have the same few causes, and most of them can be fixed without starting again.",
     category: "Websites",
@@ -215,6 +233,10 @@ export const articles: Article[] = [
   {
     slug: "after-your-website-goes-live",
     title: "What happens after your website goes live",
+    seoTitle: "After Your Website Launch: What Next?",
+    seoDescription:
+      "Launch is the start, not the finish. Security updates, tested backups, fresh content and being easy to find: what your website needs after it goes live.",
+    keywords: ["website maintenance", "website support", "after website launch", "website security updates", "website backups"],
     summary:
       "Launch is the start, not the finish. Here is what a website needs to stay safe, fast and useful for your business.",
     category: "Websites",

@@ -43,6 +43,8 @@ To change your password or turn on two-factor login (recommended), click your in
 
 - Company details: `frontend/src/lib/site.ts`
 - Services, FAQs and SEO text: `frontend/src/lib/services.ts`
+- Page titles, descriptions and search keywords: the `pageMetadata({...})` at the top of each page, the home page's in `frontend/src/app/layout.tsx` and `siteKeywords` in `frontend/src/lib/site.ts`. Google cuts titles off at about 580 pixels, so keep a page's own title to about 36 characters (the site adds " | CodeRoot Solutions") and descriptions between 120 and 160 characters.
+- Link texts: SEO checkers warn when one page has the same link text twice, so the footer (`footerLinks` in `frontend/src/lib/site.ts`) and the quote buttons use different words from the header menu. Keep it that way when adding links.
 - Page sections: `frontend/src/components/home/`
 - How we work, values and navigation: `frontend/src/lib/site.ts`
 - Pricing page: `frontend/src/lib/pricing.ts`. Set each package's `price` as a plain number, such as `45000`. While it is `null` the page shows [TBC], so set them all before going live. The website prices are the ones the owner chose from sourcecode.lk.

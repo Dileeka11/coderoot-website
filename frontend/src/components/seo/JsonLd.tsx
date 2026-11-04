@@ -31,7 +31,23 @@ export function organizationSchema() {
       addressCountry: site.address.countryCode,
     },
     areaServed: { "@type": "Country", name: site.address.country },
-    knowsAbout: ["Website development", "Web application development", "Custom software development"],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      telephone: site.phone.international,
+      email: site.email,
+      areaServed: site.address.countryCode,
+    },
+    knowsAbout: [
+      "Website development",
+      "Web design",
+      "Web application development",
+      "Custom software development",
+      "Ecommerce website development",
+      "Search engine optimisation",
+      "Social media marketing",
+      "Graphic design",
+    ],
     sameAs: Object.values(site.social),
   };
 }

@@ -7,10 +7,17 @@ import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Get a Free Quote",
+  title: "Get a Free Website & Software Quote",
   description:
     "Tell CodeRoot Solutions what you need and get a free quote for your website, web app or custom software. It takes about two minutes.",
   path: "/quote",
+  keywords: [
+    "free website quote Sri Lanka",
+    "website quotation",
+    "web development quote",
+    "software development quote",
+    "SEO quote",
+  ],
 });
 
 const nextSteps = [

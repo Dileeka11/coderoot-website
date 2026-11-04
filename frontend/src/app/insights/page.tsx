@@ -6,10 +6,16 @@ import { articles } from "@/lib/insights";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Insights: Plain Language Guides for Business Owners",
+  title: "Insights: Guides for Business Owners",
   description:
     "Plain language guides from CodeRoot Solutions on planning, buying and looking after websites and software, written for business owners.",
   path: "/insights",
+  keywords: [
+    "website tips for business owners",
+    "web development guides",
+    "software buying guide",
+    "website advice Sri Lanka",
+  ],
 });
 
 export default function InsightsPage() {

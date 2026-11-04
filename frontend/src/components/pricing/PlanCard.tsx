@@ -2,7 +2,8 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Check } from "@/components/ui/icons";
 import { formatPrice, type Plan } from "@/lib/pricing";
 
-export function PlanCard({ plan, need, index }: { plan: Plan; need: string; index: number }) {
+/** `tab` is the pricing group, such as "SEO", because the package names repeat in every group. */
+export function PlanCard({ plan, need, tab, index }: { plan: Plan; need: string; tab: string; index: number }) {
   const { featured } = plan;
 
   return (
@@ -40,9 +41,9 @@ export function PlanCard({ plan, need, index }: { plan: Plan; need: string; inde
             variant={featured ? "primary" : "outlineDark"}
             className="w-full"
             arrow
-            aria-label={`Get started with ${plan.name}`}
           >
-            Get started
+            {/* The hidden words make each link's text different, for screen readers and search engines */}
+            Get started<span className="sr-only">{` with ${plan.name} ${tab.toLowerCase()}`}</span>
           </ButtonLink>
         </div>
       </article>

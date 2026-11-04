@@ -34,6 +34,24 @@ export const site = {
   },
 } as const;
 
+/** What the home page is about, in the words people search with. Each page adds its own in lib/seo.ts. */
+export const siteKeywords = [
+  "web development company in Sri Lanka",
+  "software development company in Sri Lanka",
+  "software company in Sri Lanka",
+  "web design Sri Lanka",
+  "website design company in Sri Lanka",
+  "website development Sri Lanka",
+  "web developers in Sri Lanka",
+  "web application development Sri Lanka",
+  "custom software development Sri Lanka",
+  "ecommerce website development Sri Lanka",
+  "IT company Sri Lanka",
+  "SEO services Sri Lanka",
+  "CodeRoot Solutions",
+  "CodeRoot",
+] as const;
+
 export interface NavChild {
   href: string;
   label: string;
@@ -73,23 +91,34 @@ export const navigation: readonly NavItem[] = [
   { href: "/contact", label: "Contact" },
 ];
 
+/**
+ * The footer is on every page next to the header menu, so its labels say the same thing in
+ * other words. Search tools flag a page where one link text is repeated, and the longer
+ * labels also tell search engines more about each page.
+ */
 export const footerLinks = {
+  services: [
+    { href: "/services/website-development", label: "Website design and development" },
+    { href: "/services/web-application-development", label: "Web application development" },
+    { href: "/services/custom-software-development", label: "Custom software development" },
+    { href: "/services", label: "Compare all services" },
+  ],
   company: [
-    { href: "/about", label: "About us" },
-    { href: "/how-we-work", label: "How we work" },
-    { href: "/technology", label: "Technology" },
-    { href: "/industries", label: "Who we help" },
-    { href: "/projects", label: "Projects" },
+    { href: "/about", label: "About CodeRoot" },
+    { href: "/how-we-work", label: "Our process" },
+    { href: "/technology", label: "Our technology" },
+    { href: "/industries", label: "Industries we serve" },
+    { href: "/projects", label: "Our projects" },
   ],
   resources: [
-    { href: "/pricing", label: "Pricing" },
-    { href: "/insights", label: "Insights" },
+    { href: "/pricing", label: "Packages and pricing" },
+    { href: "/insights", label: "Guides and insights" },
     { href: "/faq", label: "FAQ" },
-    { href: "/quote", label: "Get a free quote" },
+    { href: "/quote", label: "Request a quote" },
     { href: "/contact", label: "Contact us" },
   ],
   legal: [
-    { href: "/privacy", label: "Privacy" },
+    { href: "/privacy", label: "Privacy policy" },
     { href: "/terms", label: "Terms of use" },
   ],
 } as const;

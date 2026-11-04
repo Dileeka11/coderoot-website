@@ -4,7 +4,8 @@ import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Terms of Use",
-  description: "The terms for using the CodeRoot Solutions website, in plain words.",
+  description:
+    "The terms for using the CodeRoot Solutions website, in plain words: the information on this site, quotes and projects, our content and brand, and the law.",
   path: "/terms",
 });
 

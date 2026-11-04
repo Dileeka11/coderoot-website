@@ -4,7 +4,7 @@ import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { Preloader } from "@/components/site/Preloader";
 import { JsonLd, organizationSchema, websiteSchema } from "@/components/seo/JsonLd";
-import { site } from "@/lib/site";
+import { site, siteKeywords } from "@/lib/site";
 import "./globals.css";
 
 const saira = Saira({
@@ -21,7 +21,8 @@ const inter = Inter({
   display: "swap",
 });
 
-const defaultTitle = `${site.name} | Web & Software Development Company in Sri Lanka`;
+/** Under 580 pixels in search results. See lib/seo.ts. */
+const defaultTitle = `Web Development Company in Sri Lanka | ${site.name}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -31,14 +32,7 @@ export const metadata: Metadata = {
   },
   description: site.description,
   applicationName: site.name,
-  keywords: [
-    "web development company Sri Lanka",
-    "website development Sri Lanka",
-    "software company Sri Lanka",
-    "web application development Sri Lanka",
-    "custom software development Sri Lanka",
-    "CodeRoot Solutions",
-  ],
+  keywords: [...siteKeywords],
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   publisher: site.name,

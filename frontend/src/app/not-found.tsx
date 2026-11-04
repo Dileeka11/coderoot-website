@@ -20,7 +20,7 @@ export default function NotFound() {
             Back to home
           </ButtonLink>
           <ButtonLink href="/contact" variant="outlineLight">
-            Contact us
+            Talk to us
           </ButtonLink>
         </div>
       </div>

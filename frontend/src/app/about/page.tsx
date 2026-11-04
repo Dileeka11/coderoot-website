@@ -9,10 +9,16 @@ import { pageMetadata } from "@/lib/seo";
 import { processSteps, site, values } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "About Us",
+  title: "About Us: Web & Software Company",
   description:
     "CodeRoot Solutions is a software company in Sri Lanka. We build reliable software, websites and digital solutions that help businesses grow.",
   path: "/about",
+  keywords: [
+    "software company in Sri Lanka",
+    "web development company in Sri Lanka",
+    "IT company Sri Lanka",
+    "about CodeRoot Solutions",
+  ],
 });
 
 const honest = [

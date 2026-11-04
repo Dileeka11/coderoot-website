@@ -8,10 +8,21 @@ import { pageMetadata } from "@/lib/seo";
 import { techGroups, techPrinciples, techStandards } from "@/lib/technology";
 
 export const metadata = pageMetadata({
-  title: "Technology: The Tools We Build With",
+  title: "Our Technology: Laravel, Next.js & More",
   description:
-    "The tools CodeRoot Solutions builds with, including Next.js, React, Laravel, Java, Python, Three.js, PostgreSQL and MongoDB, why we chose them, and the standards built into every project.",
+    "The tools CodeRoot Solutions builds with, including Next.js, React, Laravel, Java, Python, Three.js, PostgreSQL and MongoDB, and why we chose each one.",
   path: "/technology",
+  keywords: [
+    "Next.js development",
+    "React development",
+    "Laravel development",
+    "Java development",
+    "Python development",
+    "Three.js",
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL",
+  ],
 });
 
 const standardIcons = {

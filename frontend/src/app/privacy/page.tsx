@@ -3,8 +3,9 @@ import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Privacy",
-  description: "How the CodeRoot Solutions website handles your information. Form details are emailed to us and never stored on the site.",
+  title: "Privacy Policy",
+  description:
+    "How the CodeRoot Solutions website handles your information. What you send through our forms is emailed to us and never stored on the website itself.",
   path: "/privacy",
 });
 

@@ -66,9 +66,10 @@ export function Preloader() {
           <span className="preloader-seam" />
         </div>
         <div className="preloader-stage">
+          {/* The preloader is aria-hidden, so this alt is only for crawlers that flag empty ones */}
           <Image
             src="/images/logo-white.svg"
-            alt=""
+            alt="CodeRoot Solutions logo"
             width={255}
             height={72}
             unoptimized

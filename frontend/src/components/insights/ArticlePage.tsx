@@ -10,9 +10,10 @@ import { site } from "@/lib/site";
 
 export function articleMetadata(article: Article) {
   return pageMetadata({
-    title: article.title,
-    description: article.summary,
+    title: article.seoTitle ?? article.title,
+    description: article.seoDescription ?? article.summary,
     path: `/insights/${article.slug}`,
+    keywords: article.keywords,
     type: "article",
   });
 }
@@ -61,7 +62,7 @@ export function ArticlePage({ article }: { article: Article }) {
         eyebrow={article.category}
         title={article.title}
         crumbs={[
-          { name: "Insights", path: "/insights" },
+          { name: "All insights", path: "/insights" },
           { name: article.title, path },
         ]}
       >
@@ -86,7 +87,7 @@ export function ArticlePage({ article }: { article: Article }) {
               <p className="mt-2 text-charcoal">Tell us what you need. The quote is free, and there is no pressure.</p>
               <div className="mt-5 grid gap-3">
                 <ButtonLink href="/quote" variant="dark" arrow>
-                  Get a free quote
+                  Ask us for a quote
                 </ButtonLink>
                 <ExternalButton href={site.whatsapp.href} variant="outlineDark">
                   <WhatsApp className="size-5" />

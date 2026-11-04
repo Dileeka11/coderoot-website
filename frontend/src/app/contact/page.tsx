@@ -10,10 +10,16 @@ import { generalFaqs } from "@/lib/services";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Contact Us",
+  title: "Contact Our Web Developers",
   description:
     "Contact CodeRoot Solutions about your website, web app or custom software. Call, WhatsApp or email us from anywhere in Sri Lanka.",
   path: "/contact",
+  keywords: [
+    "contact a web developer in Sri Lanka",
+    "hire web developers Sri Lanka",
+    "software developers Sri Lanka",
+    "website development enquiry",
+  ],
 });
 
 const channels = [
@@ -132,7 +138,7 @@ export default function ContactPage() {
           <LinkCards
             onTint
             items={[
-              { href: "/quote", label: "Get a free quote", body: "A few short questions, about two minutes. It gives us what we need to reply properly." },
+              { href: "/quote", label: "Use the quote form", body: "A few short questions, about two minutes. It gives us what we need to reply properly." },
               { href: "/faq", label: "All questions and answers", body: "Cost, timing, how we work and what happens after launch." },
             ]}
           />

@@ -35,7 +35,7 @@ export function ContactCta() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3" data-reveal>
             <ButtonLink href="/quote" arrow data-magnetic>
-              Get a free quote
+              Ask for a free quote
             </ButtonLink>
             <ExternalButton href={site.whatsapp.href} variant="outlineLight">
               <WhatsApp className="size-5" />

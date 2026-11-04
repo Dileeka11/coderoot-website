@@ -8,8 +8,14 @@ export interface Service {
   folder: string;
   title: string;
   nav: string;
+  /** Under about 36 characters, so the title fits in search results with the brand added */
   seoTitle: string;
+  /** 120 to 160 characters */
   seoDescription: string;
+  /** Search phrases this page is about */
+  keywords: string[];
+  /** The button that opens the quote form with this service chosen */
+  quoteLabel: string;
   /** One line for lists */
   short: string;
   intro: string;
@@ -35,6 +41,20 @@ export const services: Service[] = [
     title: "Websites",
     nav: "Website development",
     seoTitle: "Website Development in Sri Lanka",
+    keywords: [
+      "website development Sri Lanka",
+      "web design Sri Lanka",
+      "website design company in Sri Lanka",
+      "web development company in Sri Lanka",
+      "business website Sri Lanka",
+      "ecommerce website development Sri Lanka",
+      "online store website",
+      "landing page design",
+      "website redesign",
+      "mobile friendly website",
+      "responsive web design",
+    ],
+    quoteLabel: "Get a website quote",
     seoDescription:
       "Fast, mobile friendly business websites built in Sri Lanka, set up to be found on Google and easy to keep up to date. Get a free quote from CodeRoot Solutions.",
     short: "Clear, fast websites that show customers what you do and make it easy to contact you.",
@@ -92,9 +112,20 @@ export const services: Service[] = [
     folder: "webapps/",
     title: "Web apps",
     nav: "Web app development",
-    seoTitle: "Web Application Development in Sri Lanka",
+    seoTitle: "Web Application Development Sri Lanka",
+    keywords: [
+      "web application development Sri Lanka",
+      "web app development company",
+      "customer portal development",
+      "booking system development",
+      "dashboard development",
+      "admin panel development",
+      "Laravel development Sri Lanka",
+      "Next.js and React development",
+    ],
+    quoteLabel: "Get a web app quote",
     seoDescription:
-      "Web apps built around your business: portals, dashboards and booking systems your team and customers can use from any browser. Free quote from CodeRoot Solutions.",
+      "Web application development in Sri Lanka: portals, dashboards and booking systems your team and customers use in any browser. Free quote from CodeRoot Solutions.",
     short: "Online tools your team and customers can use in the browser, with nothing to install.",
     intro:
       "A web app runs in the browser, so your team and your customers can use it from any device with nothing to install. We plan it around how people will really use it, then build it to last.",
@@ -149,7 +180,18 @@ export const services: Service[] = [
     folder: "software/",
     title: "Custom software",
     nav: "Custom software development",
-    seoTitle: "Custom Software Development in Sri Lanka",
+    seoTitle: "Custom Software Development Sri Lanka",
+    keywords: [
+      "custom software development Sri Lanka",
+      "software development company in Sri Lanka",
+      "business software Sri Lanka",
+      "inventory management system",
+      "billing and invoicing software",
+      "staff attendance system",
+      "customer records software",
+      "software integration",
+    ],
+    quoteLabel: "Get a software quote",
     seoDescription:
       "Software built around how your business works: replace manual steps, connect your tools and grow without limits. Free quote from CodeRoot Solutions, Sri Lanka.",
     short: "Software shaped around how your business works, not the other way round.",

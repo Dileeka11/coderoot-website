@@ -42,7 +42,7 @@ export function Hero() {
 
           <div className="rise mt-9 flex flex-wrap gap-3" style={{ "--i": 3 } as React.CSSProperties}>
             <ButtonLink href="/quote" arrow data-magnetic>
-              Get a free quote
+              Start your free quote
             </ButtonLink>
             <ButtonLink href="/services" variant="outlineLight">
               What we build

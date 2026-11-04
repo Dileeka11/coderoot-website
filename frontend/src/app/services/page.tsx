@@ -8,12 +8,20 @@ import { pageMetadata } from "@/lib/seo";
 import { services } from "@/lib/services";
 
 const description =
-  "Website development, web apps and custom software for growing businesses in Sri Lanka. Clean code, clear timelines and support after launch.";
+  "Website development, web application development and custom software for growing businesses in Sri Lanka. Clean code, clear timelines and support after launch.";
 
 export const metadata = pageMetadata({
-  title: "Web & Software Development Services in Sri Lanka",
+  title: "Web Development Services in Sri Lanka",
   description,
   path: "/services",
+  keywords: [
+    "web development services Sri Lanka",
+    "web design services Sri Lanka",
+    "software development services Sri Lanka",
+    "website development Sri Lanka",
+    "web application development Sri Lanka",
+    "custom software development Sri Lanka",
+  ],
 });
 
 const compare = [

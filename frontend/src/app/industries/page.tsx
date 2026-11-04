@@ -10,10 +10,18 @@ import { pageMetadata } from "@/lib/seo";
 import { getService } from "@/lib/services";
 
 export const metadata = pageMetadata({
-  title: "Who We Help: Software for Your Kind of Business",
+  title: "Who We Help: Software by Industry",
   description:
-    "What CodeRoot Solutions can build for shops, clinics, schools, restaurants, professional services and growing companies in Sri Lanka.",
+    "Websites, web apps and custom software that CodeRoot Solutions can build for shops, clinics, schools, restaurants and professional services in Sri Lanka.",
   path: "/industries",
+  keywords: [
+    "websites for small businesses Sri Lanka",
+    "software for shops",
+    "software for clinics",
+    "software for schools",
+    "restaurant website",
+    "websites for professional services",
+  ],
 });
 
 export default function IndustriesPage() {
@@ -60,7 +68,7 @@ export default function IndustriesPage() {
                       ))}
                     </ul>
                     <Link href={`/services/${service.slug}`} className="group mt-auto inline-flex min-h-11 items-center gap-2 font-semibold text-teal-deep">
-                      About {service.nav.toLowerCase()}
+                      {service.nav} for {industry.title.toLowerCase()}
                       <ArrowRight className="arrow size-5" />
                     </Link>
                   </article>

@@ -18,7 +18,7 @@ export function SimpleCta({ title = "Have a project in mind?", href = "/quote" }
         <p className="lead mt-5 max-w-xl text-mist">Tell us what you need and we will send you a free quote.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <ButtonLink href={href} arrow>
-            Get a free quote
+            Ask for a free quote
           </ButtonLink>
           <ExternalButton href={site.whatsapp.href} variant="outlineLight">
             <WhatsApp className="size-5" />

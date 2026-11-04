@@ -18,6 +18,7 @@ export function serviceMetadata(service: Service) {
     title: service.seoTitle,
     description: service.seoDescription,
     path: `/services/${service.slug}`,
+    keywords: service.keywords,
   });
 }
 
@@ -46,7 +47,7 @@ export function ServicePage({ service }: { service: Service }) {
         eyebrow={service.nav}
         title={service.seoTitle}
         crumbs={[
-          { name: "Services", path: "/services" },
+          { name: "Our services", path: "/services" },
           { name: service.nav, path },
         ]}
         shapes={[service.shape]}
@@ -101,7 +102,7 @@ export function ServicePage({ service }: { service: Service }) {
               ))}
             </ul>
             <ButtonLink href={quoteLink} variant="dark" arrow className="mt-7">
-              Get a free quote
+              {service.quoteLabel}
             </ButtonLink>
           </aside>
         </div>

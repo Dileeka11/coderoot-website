@@ -7,9 +7,16 @@ import { SimpleCta } from "@/components/site/SimpleCta";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Projects",
-  description: "Websites, web apps and custom software built by CodeRoot Solutions for growing businesses.",
+  title: "Our Projects: Websites & Software",
+  description:
+    "Websites, web apps and custom software built by CodeRoot Solutions for growing businesses in Sri Lanka, with the problem, what we built and how it turned out.",
   path: "/projects",
+  keywords: [
+    "web development portfolio Sri Lanka",
+    "website projects",
+    "software projects",
+    "CodeRoot Solutions projects",
+  ],
 });
 
 const caseStudyParts = [

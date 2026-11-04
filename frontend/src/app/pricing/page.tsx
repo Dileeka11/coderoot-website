@@ -10,10 +10,19 @@ import { pricing } from "@/lib/pricing";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Pricing: Web Development, SEO, Social Media and Design",
+  title: "Web Design & SEO Pricing in Sri Lanka",
   description:
-    "Web development from Rs. 30,000, SEO from Rs. 13,000 a month, social media from Rs. 5,000 a month and graphic design from Rs. 3,000 in Sri Lanka. See what each package includes.",
+    "Web development from Rs. 30,000, SEO from Rs. 13,000 a month, social media from Rs. 5,000 a month and graphic design from Rs. 3,000. See each package.",
   path: "/pricing",
+  keywords: [
+    "web design price in Sri Lanka",
+    "website development cost Sri Lanka",
+    "website packages Sri Lanka",
+    "SEO packages Sri Lanka",
+    "SEO services Sri Lanka",
+    "social media marketing packages Sri Lanka",
+    "graphic design price Sri Lanka",
+  ],
 });
 
 const priceFactors = [
@@ -71,7 +80,7 @@ export default function PricingPage() {
                   </div>
                   <ul className={`mt-10 grid gap-6 ${group.plans.length === 4 ? "md:grid-cols-2 xl:grid-cols-4" : "lg:grid-cols-3"}`}>
                     {group.plans.map((plan, index) => (
-                      <PlanCard key={plan.name} plan={plan} need={group.slug} index={index} />
+                      <PlanCard key={plan.name} plan={plan} need={group.slug} tab={group.tab} index={index} />
                     ))}
                   </ul>
                   {group.note && <p className="mt-6 text-center font-semibold text-teal-deep">{group.note}</p>}

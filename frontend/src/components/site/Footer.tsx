@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { footerLinks, site } from "@/lib/site";
-import { services } from "@/lib/services";
 import { Facebook, Instagram, LinkedIn, Mail, MapPin, Phone, TikTok, WhatsApp } from "@/components/ui/icons";
 
 const socials = [
@@ -55,18 +54,13 @@ export function Footer() {
         <nav aria-label="Services">
           <h2 className={headingClass}>Services</h2>
           <ul>
-            {services.map((service) => (
-              <li key={service.slug}>
-                <Link href={`/services/${service.slug}`} className={linkClass}>
-                  {service.nav}
+            {footerLinks.services.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className={linkClass}>
+                  {item.label}
                 </Link>
               </li>
             ))}
-            <li>
-              <Link href="/services" className={linkClass}>
-                All services
-              </Link>
-            </li>
           </ul>
         </nav>
 
