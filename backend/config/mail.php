@@ -115,4 +115,9 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    | Where the website's quote and contact forms are delivered.
+    */
+    'enquiries_to' => env('MAIL_ENQUIRIES_TO', 'info@coderootsolutions.com'),
+
 ];

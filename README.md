@@ -57,6 +57,12 @@ If a style change does not show up, delete `frontend/.next` and build again. Tur
 
 Brand rule from the guidelines: never invent prices, dates or client details. The site starts with no sample projects for this reason.
 
+## Contact and quote forms
+
+**Send by email** posts the form to Laravel (`POST /api/v1/enquiries`), which emails it to `MAIL_ENQUIRIES_TO` (info@coderootsolutions.com) with Reply-To set to the customer, so you can just press reply. Nothing is saved in the database. **Send on WhatsApp** still opens WhatsApp with the message ready.
+
+The deploy workflow writes the mail settings itself (Spacemail SMTP, `mail.spacemail.com`, port 465) and takes the mailbox password from the `MAIL_PASSWORD` GitHub secret. If you change the password of info@coderootsolutions.com, update that secret and run the deploy again. Locally `MAIL_MAILER=log`, so enquiries go to `backend/storage/logs` instead of the inbox. Each IP can send 3 a minute and 20 a day.
+
 ## How the speed is protected
 
 - Every page is prerendered, so visitors get static HTML straight away.

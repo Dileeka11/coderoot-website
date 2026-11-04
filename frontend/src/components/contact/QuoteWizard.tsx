@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState, type FormEvent } from "react";
 import { buttonClass } from "@/components/ui/Button";
 import { ArrowRight, Mail, WhatsApp } from "@/components/ui/icons";
-import { handOff, inputClass } from "./handoff";
+import { contactErrors, honeypotClass, inputClass, openWhatsApp, sendEnquiry } from "./handoff";
 
 const NEEDS = [
   {
@@ -95,11 +95,19 @@ interface Brief {
   budget: string;
   name: string;
   business: string;
+  phone: string;
+  email: string;
 }
 
-type Errors = Partial<Record<"need" | "description" | "name", string>>;
+type Errors = Partial<Record<"need" | "description" | "name" | "phone" | "email", string>>;
 
-function compose(brief: Brief) {
+type Status =
+  | { state: "idle" | "sending" }
+  | { state: "sent"; channel: "whatsapp" | "email" }
+  | { state: "error"; message: string };
+
+/** The WhatsApp message carries the contact details too. The email gets them from the server. */
+function compose(brief: Brief, withContact = false) {
   const who = brief.business ? `${brief.name} from ${brief.business}` : brief.name;
   const ask = NEEDS.find((need) => need.value === brief.need)?.ask;
   const lines = [`Hi CodeRoot, I'm ${who}.`, `${ask}${brief.stage ? ` (${brief.stage.toLowerCase()})` : ""}.`];
@@ -109,6 +117,7 @@ function compose(brief: Brief) {
   lines.push("", brief.description);
   if (brief.timing) lines.push("", `Timing: ${brief.timing}`);
   if (brief.budget) lines.push(`Budget in mind: ${brief.budget}`);
+  if (withContact) lines.push("", `Mobile: ${brief.phone}`, `Email: ${brief.email}`);
 
   return lines.join("\n");
 }
@@ -128,9 +137,11 @@ function Wizard({ initialNeed = "", initialPlan = "" }: { initialNeed?: string; 
     budget: "",
     name: "",
     business: "",
+    phone: "",
+    email: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-  const [sentBy, setSentBy] = useState<"whatsapp" | "email" | null>(null);
+  const [status, setStatus] = useState<Status>({ state: "idle" });
 
   const headingRef = useRef<HTMLHeadingElement>(null);
   const stepRef = useRef(step);
@@ -149,11 +160,16 @@ function Wizard({ initialNeed = "", initialPlan = "" }: { initialNeed?: string; 
   const validate = (): Errors => {
     if (step === 0 && !brief.need) return { need: "Please choose one. \"Not sure yet\" is fine." };
     if (step === 1 && !brief.description.trim()) return { description: "Please tell us a little about what you need." };
-    if (step === 3 && !brief.name.trim()) return { name: "Please tell us your name." };
+    if (step === 3) {
+      return {
+        ...(brief.name.trim() ? {} : { name: "Please tell us your name." }),
+        ...contactErrors(brief.email.trim(), brief.phone.trim()),
+      };
+    }
     return {};
   };
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const found = validate();
@@ -168,10 +184,41 @@ function Wizard({ initialNeed = "", initialPlan = "" }: { initialNeed?: string; 
       return;
     }
 
+    if (status.state === "sending") return;
+
     const submitter = (event.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null;
     const channel = submitter?.value === "email" ? "email" : "whatsapp";
-    handOff(channel, `Quote request from ${brief.name.trim()}`, compose({ ...brief, name: brief.name.trim(), description: brief.description.trim() }));
-    setSentBy(channel);
+    const clean: Brief = {
+      ...brief,
+      name: brief.name.trim(),
+      business: brief.business.trim(),
+      phone: brief.phone.trim(),
+      email: brief.email.trim(),
+      description: brief.description.trim(),
+    };
+
+    if (channel === "whatsapp") {
+      openWhatsApp(compose(clean, true));
+      setStatus({ state: "sent", channel });
+      return;
+    }
+
+    const website = String(new FormData(event.currentTarget).get("website") ?? "");
+    setStatus({ state: "sending" });
+    try {
+      await sendEnquiry({
+        kind: "quote",
+        name: clean.name,
+        email: clean.email,
+        phone: clean.phone,
+        business: clean.business,
+        message: compose(clean),
+        website,
+      });
+      setStatus({ state: "sent", channel });
+    } catch (error) {
+      setStatus({ state: "error", message: (error as Error).message });
+    }
   };
 
   const features = FEATURES[brief.need] ?? [];
@@ -385,6 +432,58 @@ function Wizard({ initialNeed = "", initialPlan = "" }: { initialNeed?: string; 
                   className={inputClass}
                 />
               </div>
+              <div>
+                <label htmlFor="quote-phone" className="font-medium">
+                  Mobile number
+                </label>
+                <input
+                  id="quote-phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  maxLength={20}
+                  required
+                  value={brief.phone}
+                  onChange={(event) => update("phone", event.target.value)}
+                  aria-invalid={Boolean(errors.phone)}
+                  aria-describedby={errors.phone ? "quote-phone-error" : undefined}
+                  className={inputClass}
+                />
+                {errors.phone && (
+                  <p id="quote-phone-error" className="mt-1.5 text-sm text-danger">
+                    {errors.phone}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label htmlFor="quote-email" className="font-medium">
+                  Email address
+                </label>
+                <input
+                  id="quote-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  maxLength={120}
+                  required
+                  value={brief.email}
+                  onChange={(event) => update("email", event.target.value)}
+                  aria-invalid={Boolean(errors.email)}
+                  aria-describedby={errors.email ? "quote-email-error" : undefined}
+                  className={inputClass}
+                />
+                {errors.email && (
+                  <p id="quote-email-error" className="mt-1.5 text-sm text-danger">
+                    {errors.email}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className={honeypotClass} aria-hidden="true">
+              <label htmlFor="quote-website">Leave this empty</label>
+              <input id="quote-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
             </div>
 
             <dl className="mt-6 rounded-xl bg-neutral p-5 text-[0.9375rem]">
@@ -428,23 +527,29 @@ function Wizard({ initialNeed = "", initialPlan = "" }: { initialNeed?: string; 
           </button>
         ) : (
           <>
-            <button type="submit" value="whatsapp" className={buttonClass("dark")}>
+            <button type="submit" value="whatsapp" disabled={status.state === "sending"} className={buttonClass("dark")}>
               <WhatsApp className="size-5" />
               Send on WhatsApp
             </button>
-            <button type="submit" value="email" className={buttonClass("outlineDark")}>
+            <button type="submit" value="email" disabled={status.state === "sending"} className={buttonClass("outlineDark")}>
               <Mail className="size-5" />
-              Send by email
+              {status.state === "sending" ? "Sending..." : "Send by email"}
             </button>
           </>
         )}
       </div>
 
       {step === STEP_LABELS.length - 1 && (
-        <p className="mt-4 text-sm text-slate" role="status">
-          {sentBy
-            ? `Your request is ready in ${sentBy === "whatsapp" ? "WhatsApp" : "your email app"}. Press send there and we will get back to you.`
-            : "Your request opens in WhatsApp or your email app, ready to send. Nothing is saved on this website."}
+        <p className={`mt-4 text-sm ${status.state === "error" ? "text-danger" : "text-slate"}`} role="status">
+          {status.state === "sent" && status.channel === "email"
+            ? "Thank you. Your request has been sent to our team, and we will get back to you soon."
+            : status.state === "sent"
+              ? "Your request is ready in WhatsApp. Press send there and we will get back to you."
+              : status.state === "error"
+                ? status.message
+                : status.state === "sending"
+                  ? "Sending your request..."
+                  : "Send by email and it comes straight to our inbox, or open it in WhatsApp ready to send."}
         </p>
       )}
     </form>

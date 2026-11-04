@@ -62,10 +62,11 @@ jobs:
         env:
           LARAVEL_ENV: ${{ secrets.LARAVEL_ENV }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
         run: |
           set -euo pipefail
           ADMIN_PATH=$(printf '%s\n' "$LARAVEL_ENV" | sed -n 's/^ADMIN_PATH=//p' | tr -d '\r"' | head -1)
-          if [ -z "$ADMIN_PATH" ] || [ -z "$DB_PASSWORD" ]; then echo "LARAVEL_ENV needs ADMIN_PATH, and DB_PASSWORD must be set"; exit 1; fi
+          if [ -z "$ADMIN_PATH" ] || [ -z "$DB_PASSWORD" ] || [ -z "$MAIL_PASSWORD" ]; then echo "LARAVEL_ENV needs ADMIN_PATH, and DB_PASSWORD and MAIL_PASSWORD must be set"; exit 1; fi
           echo "::add-mask::$ADMIN_PATH"
           mkdir -p "$WEB"
 
@@ -92,8 +93,17 @@ jobs:
           composer install --working-dir="$B" --no-dev --optimize-autoloader --no-interaction --no-progress
 
           # The live settings. DB_PASSWORD is quoted so any character in it is read as it is.
+          # The quote and contact forms email info@ through Spacemail. Any MAIL_ lines in LARAVEL_ENV are replaced.
           ESCAPED=$(printf '%s' "$DB_PASSWORD" | sed 's/[\\"]/\\&/g')
-          { printf '%s\n' "$LARAVEL_ENV" | tr -d '\r' | grep -v '^DB_PASSWORD='; printf 'DB_PASSWORD="%s"\n' "$ESCAPED"; } > "$B/.env"
+          MAIL_ESCAPED=$(printf '%s' "$MAIL_PASSWORD" | sed 's/[\\"]/\\&/g')
+          {
+            printf '%s\n' "$LARAVEL_ENV" | tr -d '\r' | grep -v -e '^DB_PASSWORD=' -e '^MAIL_'
+            printf 'DB_PASSWORD="%s"\n' "$ESCAPED"
+            printf 'MAIL_MAILER=smtp\nMAIL_SCHEME=smtps\nMAIL_HOST=mail.spacemail.com\nMAIL_PORT=465\n'
+            printf 'MAIL_USERNAME=info@coderootsolutions.com\nMAIL_PASSWORD="%s"\n' "$MAIL_ESCAPED"
+            printf 'MAIL_FROM_ADDRESS="info@coderootsolutions.com"\nMAIL_FROM_NAME="CodeRoot Solutions"\n'
+            printf 'MAIL_ENQUIRIES_TO=info@coderootsolutions.com\n'
+          } > "$B/.env"
 
       - name: Upload by FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

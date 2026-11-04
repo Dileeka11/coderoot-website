@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Privacy",
-  description: "How the CodeRoot Solutions website handles your information. In short, it does not collect or store it.",
+  description: "How the CodeRoot Solutions website handles your information. Form details are emailed to us and never stored on the site.",
   path: "/privacy",
 });
 
@@ -24,9 +24,10 @@ export default function PrivacyPage() {
           <div>
             <h2 className="text-2xl">Our forms</h2>
             <p className="mt-3 text-slate">
-              The forms on our contact and quote pages do not save anything on this website. They open WhatsApp or your
-              email app with your message ready, and you decide whether to send it. If you do, we receive your message
-              through that service and use it only to reply to you.
+              The forms on our contact and quote pages ask for your name, mobile number, email address and message. When
+              you press Send by email, they are emailed straight to our inbox and are not saved in any database on this
+              website. When you press Send on WhatsApp, WhatsApp opens with your message ready, and you decide whether to
+              send it. Either way, we use your details only to reply to you.
             </p>
           </div>
           <div>
